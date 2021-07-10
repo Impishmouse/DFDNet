@@ -231,36 +231,36 @@ if __name__ == '__main__':
     ####################### Step 3: Face Restoration ######################
     #######################################################################
 
-    print('\n###############################################################################')
-    print('####################### Step 3: Face Restoration ##############################')
-    print('###############################################################################\n')
-
+    # print('\n###############################################################################')
+    # print('####################### Step 3: Face Restoration ##############################')
+    # print('###############################################################################\n')
+    #
     SaveRestorePath = os.path.join(ResultsDir,'Step3_RestoreCropFace')# Only Face Results
     if not os.path.exists(SaveRestorePath):
         os.makedirs(SaveRestorePath)
-    model = create_model(opt)
-    model.setup(opt)
-    # test
-    ImgPaths = make_dataset(SaveCropPath)
-    total = 0
-    for i, ImgPath in enumerate(ImgPaths):
-        ImgName = os.path.split(ImgPath)[-1]
-        print('Restoring {}'.format(ImgName))
-        torch.cuda.empty_cache()
-        data = obtain_inputs(SaveCropPath, SaveLandmarkPath, ImgName)
-        if data == 0:
-            print('\t################ Error in landmark file, continue...')
-            continue #
-        total = total + 1
-        model.set_input(data)
-        try:
-            model.test()
-            visuals = model.get_current_visuals()
-            save_crop(visuals,os.path.join(SaveRestorePath,ImgName))
-        except Exception as e:
-            print('\t################ Error in enhancing this image: {}'.format(str(e)))
-            print('\t################ continue...')
-            continue
+    # model = create_model(opt)
+    # model.setup(opt)
+    # # test
+    # ImgPaths = make_dataset(SaveCropPath)
+    # total = 0
+    # for i, ImgPath in enumerate(ImgPaths):
+    #     ImgName = os.path.split(ImgPath)[-1]
+    #     print('Restoring {}'.format(ImgName))
+    #     torch.cuda.empty_cache()
+    #     data = obtain_inputs(SaveCropPath, SaveLandmarkPath, ImgName)
+    #     if data == 0:
+    #         print('\t################ Error in landmark file, continue...')
+    #         continue #
+    #     total = total + 1
+    #     model.set_input(data)
+    #     try:
+    #         model.test()
+    #         visuals = model.get_current_visuals()
+    #         save_crop(visuals,os.path.join(SaveRestorePath,ImgName))
+    #     except Exception as e:
+    #         print('\t################ Error in enhancing this image: {}'.format(str(e)))
+    #         print('\t################ continue...')
+    #         continue
 
     #######################################################################
     ############ Step 4: Paste the Results to the Input Image #############
